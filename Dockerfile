@@ -10,7 +10,7 @@ WORKDIR /app
 COPY --from=client /client/build build
 COPY yarn.lock package.json ./
 RUN yarn install --production && yarn global add pm2 && yarn cache clean --force
-COPY server.js processes.json ./
+COPY server.js ./
 EXPOSE 9000
 USER node
-CMD ["pm2", "start", "processes.json", "--no-daemon"]
+CMD ["pm2", "start", "server.js", "--name", "autocomplete-comparator", "--no-daemon"]
